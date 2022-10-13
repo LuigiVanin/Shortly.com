@@ -1,7 +1,9 @@
 import type { NextPage } from "next";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import { useState } from "react";
+import api from "../services/api";
 
 interface ILink {
     title: string;
@@ -16,13 +18,22 @@ interface HomeProps {
 
 const Home: NextPage<HomeProps> = ({ data }) => {
     const links = data.links;
+    const router = useRouter();
+    let hostname = "";
+
+    if (typeof window !== "undefined") {
+        hostname = window.location.origin;
+    }
+
+    const { status } = useSession();
 
     const [input, setInput] = useState("");
+    const [shortUrl, setShortUrl] = useState<string | any>("...");
     console.log(input);
 
     console.log(links);
     return (
-        <div className="flex justify-center">
+        <div className="flex justify-center items-center min-h-screen bg-sky-400">
             <Head>
                 <title>Create Next App</title>
                 <meta
@@ -32,48 +43,64 @@ const Home: NextPage<HomeProps> = ({ data }) => {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
 
-            <main>
-                <h1 className="font-bold underline ">Teste</h1>
-                {links.map((item) => (
-                    <p key={item.title} className="text-center">
-                        {item.title} - {item.link}
-                    </p>
-                ))}
-                <Link href="/about">
-                    <p className="text-center underline text-blue-500 cursor-pointer">
-                        teste
-                    </p>
-                </Link>
+            <main className="flex flex-col w-full px-10 gap-2">
+                <h1 className="font-bold underline ">Encurte seus Links</h1>
+
                 <input
                     type="text"
-                    className="bg-green-100"
+                    className="w-full h-9 bg-gray-300 flex items-center px-2 rounded-md"
                     value={input}
                     onChange={(event) => {
                         setInput(event.target.value);
                     }}
                 />
-                <Link
-                    href={`/profile/${input}`}
-                    className="bg-gray-300 hover:bg-white"
+
+                <button
+                    className="px-5 bg-gray-100"
+                    onClick={async () => {
+                        try {
+                            const result = await api.post("link", {
+                                link: input,
+                            });
+                            // if (result.data.result === null) {
+                            //     throw new Error();
+                            // }
+                            setShortUrl(result.data.result);
+                            console.log("aqui: ", shortUrl);
+                        } catch (e) {
+                            console.log("erro");
+                        }
+                    }}
                 >
-                    Ir para profile
-                </Link>
+                    Criar
+                </button>
+
+                <div className="w-full h-9 bg-gray-300 flex items-center px-2 rounded-md">
+                    {shortUrl.short
+                        ? `${hostname}/api/${shortUrl.short}`
+                        : "..."}
+                </div>
+
+                {status === "authenticated" ? (
+                    <button
+                        className="px-5 bg-gray-100"
+                        onClick={async () => {
+                            try {
+                                await api.post("", { linkId: shortUrl.id });
+                            } catch (e) {
+                                router.push("/");
+                                console.log(e);
+                            }
+                        }}
+                    >
+                        Save
+                    </button>
+                ) : (
+                    <></>
+                )}
             </main>
         </div>
     );
-};
-
-export const getStaticProps = () => {
-    return {
-        props: {
-            data: {
-                links: [
-                    { title: "whatever", link: "youtube.com" },
-                    { title: "cute bunny", link: "youtube.com" },
-                ],
-            },
-        },
-    };
 };
 
 export default Home;

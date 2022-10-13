@@ -60,8 +60,8 @@ model VerificationToken {
 
 model Link {
   id    String @id @default(cuid())
-  link  String
-  short String
+  link  String @unique
+  short String @unique
 
   Relation Relation[]
 }

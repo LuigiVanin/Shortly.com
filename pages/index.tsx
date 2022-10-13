@@ -25,7 +25,9 @@ const LogIn: NextPage = () => {
             <button
                 className="btn-primary"
                 onClick={() => {
-                    signIn("github");
+                    signIn("github", {
+                        callbackUrl: "/home",
+                    });
                 }}
             >
                 Login Github
