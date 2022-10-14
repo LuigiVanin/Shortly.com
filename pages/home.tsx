@@ -1,37 +1,34 @@
-import type { NextPage } from "next";
-import { useSession } from "next-auth/react";
+import type { GetServerSideProps, NextApiRequest, NextPage } from "next";
+import { unstable_getServerSession } from "next-auth";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { Header } from "../components/Header";
+import { useAsync } from "../hooks/useAsync";
+import { useInput } from "../hooks/useInput";
 import api from "../services/api";
-
-interface ILink {
-    title: string;
-    link: string;
-}
+import { authOptions } from "./api/auth/[...nextauth]";
 
 interface HomeProps {
-    data: {
-        links: ILink[];
-    };
+    secure: boolean;
 }
 
-const Home: NextPage<HomeProps> = ({ data }) => {
-    const links = data.links;
+const Home: NextPage<HomeProps> = ({ secure }) => {
     const router = useRouter();
     let hostname = "";
+
+    const { action, data } = useAsync(async (link) => {
+        return await api.post("link", {
+            link,
+        });
+    }, false);
+
+    console.log(!!data?.data.result.id);
+    const { input, handler } = useInput("");
 
     if (typeof window !== "undefined") {
         hostname = window.location.origin;
     }
 
-    const { status } = useSession();
-
-    const [input, setInput] = useState("");
-    const [shortUrl, setShortUrl] = useState<string | any>("...");
-    console.log(input);
-
-    console.log(links);
     return (
         <div className="flex justify-center items-center min-h-screen bg-sky-400">
             <Head>
@@ -42,58 +39,46 @@ const Home: NextPage<HomeProps> = ({ data }) => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head>
+            <Header />
 
-            <main className="flex flex-col w-full px-10 gap-2">
+            <main className="flex flex-col items-center w-full px-10 gap-2 md:w-[768px]">
                 <h1 className="font-bold underline ">Encurte seus Links</h1>
 
                 <input
                     type="text"
-                    className="w-full h-9 bg-gray-300 flex items-center px-2 rounded-md"
+                    className="url-box"
                     value={input}
-                    onChange={(event) => {
-                        setInput(event.target.value);
-                    }}
+                    placeholder="Insira url para encurtar..."
+                    onChange={handler}
                 />
 
-                <button
-                    className="px-5 bg-gray-100"
-                    onClick={async () => {
-                        try {
-                            const result = await api.post("link", {
-                                link: input,
-                            });
-                            // if (result.data.result === null) {
-                            //     throw new Error();
-                            // }
-                            setShortUrl(result.data.result);
-                            console.log("aqui: ", shortUrl);
-                        } catch (e) {
-                            console.log("erro");
-                        }
-                    }}
-                >
-                    Criar
+                <button className="my-btn" onClick={() => action(input)}>
+                    Create Short Url
                 </button>
 
-                <div className="w-full h-9 bg-gray-300 flex items-center px-2 rounded-md">
-                    {shortUrl.short
-                        ? `${hostname}/api/${shortUrl.short}`
+                <div className="url-box">
+                    {data?.data?.result?.short
+                        ? `${hostname}/api/${data.data.result.short}`
                         : "..."}
                 </div>
 
-                {status === "authenticated" ? (
+                {secure ? (
                     <button
-                        className="px-5 bg-gray-100"
+                        className="my-btn"
                         onClick={async () => {
                             try {
-                                await api.post("", { linkId: shortUrl.id });
+                                console.log("save");
+                                await api.post("", {
+                                    linkId: data?.data.result.id,
+                                });
                             } catch (e) {
                                 router.push("/");
                                 console.log(e);
                             }
                         }}
+                        disabled={!data?.data.result.id}
                     >
-                        Save
+                        Save Short
                     </button>
                 ) : (
                     <></>
@@ -101,6 +86,15 @@ const Home: NextPage<HomeProps> = ({ data }) => {
             </main>
         </div>
     );
+};
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+    const session = await unstable_getServerSession(req, res, authOptions);
+    return {
+        props: {
+            secure: !!session,
+        },
+    };
 };
 
 export default Home;

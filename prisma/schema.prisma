@@ -60,7 +60,7 @@ model VerificationToken {
 
 model Link {
   id    String @id @default(cuid())
-  link  String @unique
+  link  String @db.Text()
   short String @unique
 
   Relation Relation[]

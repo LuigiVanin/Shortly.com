@@ -9,6 +9,14 @@ const getLink = async (link: string) => {
     });
 };
 
+const getFromShort = async (short: string) => {
+    return await prisma.link.findUnique({
+        where: {
+            short,
+        },
+    });
+};
+
 const createLink = async (link: string) => {
     const links = await getLink(link);
     console.log(links);
@@ -38,4 +46,4 @@ const createLinkBindendUser = async (
     });
 };
 
-export { createLink, createLinkBindendUser, getLink };
+export { createLink, createLinkBindendUser, getLink, getFromShort };

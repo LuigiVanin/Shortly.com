@@ -1,5 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
+import { getFromShort } from "../../services/api/link.service";
 import { authOptions } from "./auth/[...nextauth]";
 
 export default async function handler(
@@ -7,11 +8,11 @@ export default async function handler(
     res: NextApiResponse
 ) {
     if (req.method === "GET") {
-        const session = await unstable_getServerSession(req, res, authOptions);
-        if (!session) {
-            return res.status(403).json({ message: "not logged" });
+        const { shortname } = req.query;
+        const result = await getFromShort(shortname as string);
+        if (!result) {
+            return res.status(404).json({ message: "Not found" });
         }
-        console.log(session);
-        res.redirect("https://youtube.com");
+        res.redirect(result.link);
     }
 }
