@@ -1,5 +1,5 @@
-import api from "../services/api";
-import { useAsync } from "./useAsync";
+import api from "../../services/api";
+import { useAsync } from "../useAsync";
 
 export const useCreateLink = () => {
     const { action, data, isLoading, error } = useAsync(async (link) => {

@@ -35,14 +35,20 @@ a {
             focus:ring-opacity-75;
     }
     .url-box {
-        @apply w-full h-12 bg-gray-200 flex items-center px-5 
-            rounded-md text-lg focus:bg-gray-300 hover:bg-gray-300
-            relative;
+        @apply w-full h-12 bg-white/75 flex items-center px-5 
+            rounded-md text-lg focus:bg-gray-100 hover:bg-gray-100
+            relative shadow-sm ease-in-out 
+            duration-150;
+    }
+
+    .layout {
+        @apply flex justify-center items-center min-h-screen bg-sky-400;
     }
 
     .my-btn {
         @apply w-full h-12 bg-gray-200 hover:bg-white 
             flex items-center justify-center rounded-lg ease-in-out 
-            duration-150 text-lg font-semibold cursor-pointer;
+            duration-150 text-lg font-semibold cursor-pointer hover:shadow-md 
+            hover:shadow-slate-100 gap-1 px-3;
     }
 }

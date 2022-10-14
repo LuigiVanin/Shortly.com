@@ -7,6 +7,7 @@ import { useAsync } from "../hooks/useAsync";
 import { useInput } from "../hooks/useInput";
 import api from "../services/api";
 import { authOptions } from "./api/auth/[...nextauth]";
+import { FaLink, FaSave } from "react-icons/fa";
 
 interface HomeProps {
     secure: boolean;
@@ -30,7 +31,7 @@ const Home: NextPage<HomeProps> = ({ secure }) => {
     }
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-sky-400">
+        <div className="layout">
             <Head>
                 <title>Create Next App</title>
                 <meta
@@ -54,6 +55,7 @@ const Home: NextPage<HomeProps> = ({ secure }) => {
 
                 <button className="my-btn" onClick={() => action(input)}>
                     Create Short Url
+                    <FaLink size={20} />
                 </button>
 
                 <div className="url-box">
@@ -79,6 +81,7 @@ const Home: NextPage<HomeProps> = ({ secure }) => {
                         disabled={!data?.data.result.id}
                     >
                         Save Short
+                        <FaSave size={20} />
                     </button>
                 ) : (
                     <></>
