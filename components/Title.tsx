@@ -1,15 +1,31 @@
 import React from "react";
+import { FaLink } from "react-icons/fa";
+
+type Size = "sm" | "lg" | "md";
 
 interface TitleProps {
-    size: "sm" | "lg" | "md";
-    color: string;
-    className: string;
+    size?: Size;
+    color?: string;
 }
 
-export const Title = ({ size, color }: TitleProps) => {
+interface TitleSize {
+    [key: string | Size]: string;
+}
+
+export const Title: React.FC<TitleProps> = ({
+    size = "sm",
+    color = "black",
+}) => {
+    const titleSize: TitleSize = {
+        sm: "sm",
+        lg: "6xl",
+    };
+
     return (
-        <h1 className="flex items-center justify-center font-bold">
-            Shortly <span>🔗</span>
+        <h1
+            className={`flex items-center justify-center font-bold text-${titleSize[size]} text-${color}`}
+        >
+            Shortly <FaLink />
         </h1>
     );
 };

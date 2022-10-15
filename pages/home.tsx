@@ -8,6 +8,8 @@ import { useInput } from "../hooks/useInput";
 import api from "../services/api";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { FaLink, FaSave } from "react-icons/fa";
+import { Divisor } from "../components/Divisor";
+import { SaveLinkPopUp } from "../components/SaveLinkPopUp";
 
 interface HomeProps {
     secure: boolean;
@@ -21,6 +23,10 @@ const Home: NextPage<HomeProps> = ({ secure }) => {
         return await api.post("link", {
             link,
         });
+    }, false);
+
+    const { action: saveLink } = useAsync(async (data) => {
+        return await api.post("", data);
     }, false);
 
     console.log(!!data?.data.result.id);
@@ -43,11 +49,17 @@ const Home: NextPage<HomeProps> = ({ secure }) => {
             <Header />
 
             <main className="flex flex-col items-center w-full px-10 gap-2 md:w-[768px]">
-                <h1 className="font-bold underline ">Encurte seus Links</h1>
+                <h1 className="font-bold  mb-5 text-white text-3xl">
+                    Encurte seus Links!
+                </h1>
+
+                <Divisor>
+                    <FaLink />
+                </Divisor>
 
                 <input
                     type="text"
-                    className="url-box"
+                    className="url-box mt-5"
                     value={input}
                     placeholder="Insira url para encurtar..."
                     onChange={handler}
@@ -64,14 +76,17 @@ const Home: NextPage<HomeProps> = ({ secure }) => {
                         : "..."}
                 </div>
 
+                {/* <SaveLinkPopUp /> */}
+
                 {secure ? (
                     <button
                         className="my-btn"
                         onClick={async () => {
                             try {
                                 console.log("save");
-                                await api.post("", {
+                                await api.post("link/save", {
                                     linkId: data?.data.result.id,
+                                    title: "teste",
                                 });
                             } catch (e) {
                                 router.push("/");

@@ -8,6 +8,7 @@ import { useInput } from "../hooks/useInput";
 import { useState } from "react";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
+import { Layout } from "../components/Layout";
 
 const LogIn: NextPage = () => {
     const { input: email, handler: emailHandler } = useInput("");
@@ -24,10 +25,13 @@ const LogIn: NextPage = () => {
     };
 
     return (
-        <div className="layout">
-            <main className="w-4/5 flex flex-col gap-5">
-                <Title size="lg" color="white" className={""} />
-                <form action="" className="flex flex-col gap-1">
+        <Layout>
+            <main className="w-4/5 flex flex-col gap-5 lg:w-[819px]">
+                <Title size="lg" color="white" />
+                <p className="text-white text-center text-lg font-semibold mt-5">
+                    Sign In
+                </p>
+                <form action="" className="flex flex-col gap-1 ">
                     <input
                         type="text"
                         className="url-box"
@@ -42,7 +46,7 @@ const LogIn: NextPage = () => {
                         onChange={passHandler}
                         placeholder="Insert Password..."
                     />
-                    <button className="my-btn gap-1 px-3" onClick={logIn}>
+                    <button className="my-btn gap-1 px-3 mt-5" onClick={logIn}>
                         Login with email
                         <CgLogIn size={30} />
                     </button>
@@ -50,12 +54,15 @@ const LogIn: NextPage = () => {
 
                 <Divisor>or</Divisor>
 
-                <button className="my-btn gap-1 px-3" onClick={logIn}>
+                <button
+                    className="my-btn gap-1 px-3 text-white bg-gray-900 hover:bg-gray-800 hover:shadow-lg shadow-black"
+                    onClick={logIn}
+                >
                     Login with Github
-                    <FaGithub size={30} />
+                    <FaGithub size={30} color={"white"} />
                 </button>
             </main>
-        </div>
+        </Layout>
     );
 };
 

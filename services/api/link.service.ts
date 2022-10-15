@@ -1,49 +1,62 @@
+import { PrismaClient } from "@prisma/client";
 import { nanoid } from "nanoid";
 import prisma from "../../db";
 
-const getLink = async (link: string) => {
-    return await prisma.link.findFirst({
-        where: {
-            link,
-        },
-    });
-};
+class LinkService {
+    constructor(private db: PrismaClient) {}
 
-const getFromShort = async (short: string) => {
-    return await prisma.link.findUnique({
-        where: {
-            short,
-        },
-    });
-};
+    getLink = async (link: string) => {
+        return await this.db.link.findFirst({
+            where: {
+                link,
+            },
+        });
+    };
 
-const createLink = async (link: string) => {
-    const links = await getLink(link);
-    console.log(links);
-    if (!!links) {
-        return links;
-    }
-    const shortUrl = nanoid(6);
-    return await prisma.link.create({
-        data: {
-            link,
-            short: shortUrl,
-        },
-    });
-};
+    getFromShort = async (short: string) => {
+        return await this.db.link.findUnique({
+            where: {
+                short,
+            },
+        });
+    };
 
-const createLinkBindendUser = async (
-    title: string,
-    linkId: string,
-    userId: string
-) => {
-    await prisma.relation.create({
-        data: {
-            title,
-            linkId,
-            userId,
-        },
-    });
-};
+    createLink = async (link: string) => {
+        const links = await this.getLink(link);
+        console.log(links);
+        if (!!links) {
+            return links;
+        }
+        const shortUrl = nanoid(6);
+        return await this.db.link.create({
+            data: {
+                link,
+                short: shortUrl,
+            },
+        });
+    };
 
-export { createLink, createLinkBindendUser, getLink, getFromShort };
+    createLinkBindendUser = async (
+        title: string,
+        linkId: string,
+        useremail: string
+    ) => {
+        return await this.db.relation.create({
+            data: {
+                title,
+                link: {
+                    connect: {
+                        id: linkId,
+                    },
+                },
+                user: {
+                    connect: {
+                        email: useremail,
+                    },
+                },
+            },
+        });
+    };
+}
+
+export { LinkService };
