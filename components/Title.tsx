@@ -21,6 +21,8 @@ export const Title: React.FC<TitleProps> = ({
         lg: "6xl",
     };
 
+    console.log(titleSize[size]);
+
     return (
         <h1
             className={`flex items-center justify-center font-bold text-${titleSize[size]} text-${color}`}

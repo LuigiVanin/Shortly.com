@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 
 interface Props {
     children: JSX.Element | JSX.Element[] | string | string[];
@@ -7,14 +7,24 @@ interface Props {
 }
 
 export const PopUp: React.FC<Props> = ({ children, show, disable }) => {
+    const propagation = (event: MouseEvent<HTMLDivElement>) => {
+        event.stopPropagation();
+        disable && disable();
+    };
+
     return (
         <>
             {show ? (
                 <div
-                    className="fixed inset-0 bg-black/50 flex items-center justify-center"
-                    onClick={disable}
+                    className="fixed inset-0 bg-black/10 flex items-center justify-center"
+                    onClick={propagation}
                 >
-                    <div>{children}</div>
+                    <div
+                        className="relative shadow-2xl"
+                        onClick={(event) => event.stopPropagation()}
+                    >
+                        {children}
+                    </div>
                 </div>
             ) : (
                 ""

@@ -10,6 +10,7 @@ import { authOptions } from "./api/auth/[...nextauth]";
 import { FaLink, FaSave } from "react-icons/fa";
 import { Divisor } from "../components/Divisor";
 import { SaveLinkPopUp } from "../components/SaveLinkPopUp";
+import { useState } from "react";
 
 interface HomeProps {
     secure: boolean;
@@ -18,7 +19,8 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = ({ secure }) => {
     const router = useRouter();
     let hostname = "";
-
+    const [popUp, setPopUp] = useState(false);
+    const { input, handler } = useInput("");
     const { action, data } = useAsync(async (link) => {
         return await api.post("link", {
             link,
@@ -26,11 +28,8 @@ const Home: NextPage<HomeProps> = ({ secure }) => {
     }, false);
 
     const { action: saveLink } = useAsync(async (data) => {
-        return await api.post("", data);
+        return await api.post("link/save", data);
     }, false);
-
-    console.log(!!data?.data.result.id);
-    const { input, handler } = useInput("");
 
     if (typeof window !== "undefined") {
         hostname = window.location.origin;
@@ -70,28 +69,24 @@ const Home: NextPage<HomeProps> = ({ secure }) => {
                     <FaLink size={20} />
                 </button>
 
-                <div className="url-box">
-                    {data?.data?.result?.short
-                        ? `${hostname}/api/${data.data.result.short}`
-                        : "..."}
-                </div>
-
-                {/* <SaveLinkPopUp /> */}
+                <input
+                    className="url-box"
+                    value={
+                        data?.data?.result?.short
+                            ? `${hostname}/api/${data.data.result.short}`
+                            : "..."
+                    }
+                    disabled
+                />
 
                 {secure ? (
                     <button
                         className="my-btn"
                         onClick={async () => {
-                            try {
-                                console.log("save");
-                                await api.post("link/save", {
-                                    linkId: data?.data.result.id,
-                                    title: "teste",
-                                });
-                            } catch (e) {
-                                router.push("/");
-                                console.log(e);
-                            }
+                            setPopUp(true);
+                            // saveLink({
+                            //     shortId: data?.data.result.id,
+                            // });
                         }}
                         disabled={!data?.data.result.id}
                     >
@@ -101,6 +96,15 @@ const Home: NextPage<HomeProps> = ({ secure }) => {
                 ) : (
                     <></>
                 )}
+
+                <SaveLinkPopUp
+                    show={popUp}
+                    disable={() => setPopUp(false)}
+                    content={{
+                        link: input,
+                        short: `${hostname}/api/${data?.data.result.short}`,
+                    }}
+                />
             </main>
         </div>
     );

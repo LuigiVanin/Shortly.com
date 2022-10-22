@@ -40,6 +40,9 @@ a {
             relative shadow-sm ease-in-out 
             duration-150;
     }
+    /* textarea.url-box {
+        min-height: 100px;
+    } */
 
     .layout {
         @apply flex justify-center items-center min-h-screen bg-sky-400;
