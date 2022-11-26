@@ -5,5 +5,5 @@ interface Props {
 }
 
 export const Layout: React.FC<Props> = ({ children }) => {
-    return <div className="layout">{children}</div>;
+    return <div className="layout bg-sky-400">{children}</div>;
 };

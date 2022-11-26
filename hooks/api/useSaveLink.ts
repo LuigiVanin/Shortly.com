@@ -1,9 +1,9 @@
 import api from "../../services/api";
 import { useAsync } from "../useAsync";
 
-export const useCreateLink = () => {
+export const useSaveLink = () => {
     const { action, data, isLoading, error } = useAsync(async (data) => {
-        return await api.post("link", {
+        return await api.post("link/save", {
             data,
         });
     }, false);

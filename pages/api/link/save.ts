@@ -1,4 +1,3 @@
-import { HttpStatusCode } from "axios";
 import type { NextApiRequest, NextApiResponse } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { LinkService } from "../../../services/api/link.service";
@@ -11,19 +10,22 @@ export default async function handler(
 ) {
     if (req.method === "POST") {
         const session = await unstable_getServerSession(req, res, authOptions);
-        console.log(session);
-        console.log(req.body);
         const service = new LinkService(prisma);
-        const { shortId } = req.body;
+        const { shortId, title } = req.body.data;
         if (session && shortId && session.user?.email) {
-            const relation = await service.createLinkBindendUser(
-                "teste",
-                shortId,
-                session.user.email
-            );
-            console.log(relation);
-            return res.status(201).send(relation);
+            try {
+                const relation = await service.createLinkBindendUser(
+                    title,
+                    shortId,
+                    session.user.email
+                );
+                return res.status(201).send(relation);
+            } catch (err) {
+                return res
+                    .status(200)
+                    .send({ message: "erro ao persistir dados" });
+            }
         }
-        return res.status(HttpStatusCode.Unauthorized).send({});
+        return res.status(401).send({});
     }
 }

@@ -45,7 +45,7 @@ a {
     } */
 
     .layout {
-        @apply flex justify-center items-center min-h-screen bg-sky-400;
+        @apply flex justify-center items-center min-h-screen bg-slate-100;
     }
 
     .my-btn {

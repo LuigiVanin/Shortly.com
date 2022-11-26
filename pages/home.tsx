@@ -27,10 +27,7 @@ const Home: NextPage<HomeProps> = ({ secure }) => {
         });
     }, false);
 
-    const { action: saveLink } = useAsync(async (data) => {
-        return await api.post("link/save", data);
-    }, false);
-
+    console.log(data);
     if (typeof window !== "undefined") {
         hostname = window.location.origin;
     }
@@ -48,7 +45,7 @@ const Home: NextPage<HomeProps> = ({ secure }) => {
             <Header />
 
             <main className="flex flex-col items-center w-full px-10 gap-2 md:w-[768px]">
-                <h1 className="font-bold  mb-5 text-white text-3xl">
+                <h1 className="font-bold  mb-5 text-black text-3xl">
                     Encurte seus Links!
                 </h1>
 
@@ -56,51 +53,57 @@ const Home: NextPage<HomeProps> = ({ secure }) => {
                     <FaLink />
                 </Divisor>
 
-                <input
-                    type="text"
-                    className="url-box mt-5"
-                    value={input}
-                    placeholder="Insira url para encurtar..."
-                    onChange={handler}
-                />
+                <div className="flex flex-col gap-5 w-full px-5">
+                    <input
+                        type="text"
+                        className="url-box mt-5 shadow-lg focus:bg-sky-200"
+                        value={input}
+                        placeholder="Insira url para encurtar..."
+                        onChange={handler}
+                    />
 
-                <button className="my-btn" onClick={() => action(input)}>
-                    Create Short Url
-                    <FaLink size={20} />
-                </button>
-
-                <input
-                    className="url-box"
-                    value={
-                        data?.data?.result?.short
-                            ? `${hostname}/api/${data.data.result.short}`
-                            : "..."
-                    }
-                    disabled
-                />
-
-                {secure ? (
                     <button
-                        className="my-btn"
-                        onClick={async () => {
-                            setPopUp(true);
-                            // saveLink({
-                            //     shortId: data?.data.result.id,
-                            // });
-                        }}
-                        disabled={!data?.data.result.id}
+                        className="my-btn shadow-md hover:bg-sky-400 hover:text-white hover:shadow-lg hover:shadow-sky-400"
+                        onClick={() => action(input)}
                     >
-                        Save Short
-                        <FaSave size={20} />
+                        Create Short Url
+                        <FaLink size={20} />
                     </button>
-                ) : (
-                    <></>
-                )}
+
+                    <input
+                        className="url-box shadow-lg focus:bg-sky-200"
+                        value={
+                            data?.data?.result?.short
+                                ? `${hostname}/api/${data.data.result.short}`
+                                : "..."
+                        }
+                        disabled
+                    />
+
+                    {secure ? (
+                        <button
+                            className="my-btn shadow-md hover:bg-sky-400 hover:text-white hover:shadow-lg hover:shadow-sky-400 hover:py-8"
+                            onClick={async () => {
+                                setPopUp(true);
+                                // saveLink({
+                                //     shortId: data?.data.result.id,
+                                // });
+                            }}
+                            disabled={!data?.data.result.id}
+                        >
+                            Save Short
+                            <FaSave size={20} />
+                        </button>
+                    ) : (
+                        <></>
+                    )}
+                </div>
 
                 <SaveLinkPopUp
                     show={popUp}
                     disable={() => setPopUp(false)}
                     content={{
+                        shortId: data?.data.result.id,
                         link: input,
                         short: `${hostname}/api/${data?.data.result.short}`,
                     }}
