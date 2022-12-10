@@ -84,7 +84,7 @@ export const SaveLinkPopUp: React.FC<Props> = ({ show, disable, content }) => {
                         className="url-box text-md h-10 px-2 shadow-lg mb-4 mt-1 hover:bg-white"
                     />
                     <button
-                        className={`my-btn hover:bg-emerald-400 hover:text-white hover:shadow-lg mt-7 ${
+                        className={`my-btn bg-emerald-200 hover:bg-emerald-400 hover:text-white hover:shadow-lg mt-7 ${
                             isLoading ? "bg-emerald-400" : ""
                         }`}
                         disabled={!title}
