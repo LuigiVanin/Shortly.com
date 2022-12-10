@@ -19,7 +19,7 @@ interface HomeProps {
 const Home: NextPage<HomeProps> = ({ secure }) => {
     const router = useRouter();
     let hostname = "";
-    const [popUp, setPopUp] = useState(false);
+    const [popUp, setPopUp] = useState(true);
     const { input, handler } = useInput("");
     const { action, data } = useAsync(async (link) => {
         return await api.post("link", {

@@ -1,14 +1,15 @@
 import { GetServerSideProps, NextPage } from "next";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { FaGithub } from "react-icons/fa";
 import { CgLogIn } from "react-icons/cg";
 import { Divisor } from "../components/Divisor";
-import { Title } from "../components/Title";
 import { useInput } from "../hooks/useInput";
 import { useState } from "react";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { Layout } from "../components/Layout";
+import { FaLink } from "react-icons/fa";
+import { Input } from "@nextui-org/react";
 
 const LogIn: NextPage = () => {
     const { input: email, handler: emailHandler } = useInput("");
@@ -26,26 +27,29 @@ const LogIn: NextPage = () => {
 
     return (
         <Layout>
-            <main className="w-4/5 flex flex-col gap-5 lg:w-[819px]">
-                <Title size="lg" color="white" />
-                <p className="text-white text-center text-lg font-semibold mt-5">
-                    Sign In
-                </p>
+            <main className="w-3/5 flex flex-col gap-5 lg:w-[640px]">
+                <h1 className="flex row justify-center text-6xl font-bold text-white">
+                    Shortly <FaLink />
+                </h1>
                 <form action="" className="flex flex-col gap-1 ">
-                    <input
+                    <p className="text-white text-center text-lg font-semibold mt-5">
+                        Sign In
+                    </p>
+                    {/* <input
                         type="text"
                         className="url-box"
                         value={email}
                         onChange={emailHandler}
                         placeholder="Insert Email..."
+                    /> */}
+
+                    <Input clearable size="xl" placeholder="Email..." />
+                    <Input.Password
+                        clearable
+                        size="xl"
+                        placeholder="Password..."
                     />
-                    <input
-                        type="password"
-                        className="url-box"
-                        value={pass}
-                        onChange={passHandler}
-                        placeholder="Insert Password..."
-                    />
+
                     <button className="my-btn gap-1 px-3 mt-5" onClick={logIn}>
                         Login with email
                         <CgLogIn size={30} />

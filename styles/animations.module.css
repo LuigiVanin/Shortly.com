@@ -1,0 +1,19 @@
+@keyframes show-popup {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    70% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.popup {
+    animation: show-popup cubic-bezier(0.25, 0.75, 0.5, 1.25) 0.5s;
+}

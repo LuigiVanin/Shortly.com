@@ -1,4 +1,5 @@
 import React, { MouseEvent } from "react";
+import style from "../styles/animations.module.css";
 
 interface Props {
     children: JSX.Element | JSX.Element[] | string | string[];
@@ -16,11 +17,11 @@ export const PopUp: React.FC<Props> = ({ children, show, disable }) => {
         <>
             {show ? (
                 <div
-                    className="fixed inset-0 bg-black/10 flex items-center justify-center"
+                    className="popup fixed inset-0 bg-black/10 flex items-center justify-center"
                     onClick={propagation}
                 >
                     <div
-                        className="relative shadow-2xl"
+                        className={`relative shadow-2xl ${style.popup}`}
                         onClick={(event) => event.stopPropagation()}
                     >
                         {children}
