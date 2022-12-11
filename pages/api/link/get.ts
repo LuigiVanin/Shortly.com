@@ -8,7 +8,7 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    if (req.method === "POST") {
+    if (req.method === "GET") {
         const session = await unstable_getServerSession(req, res, authOptions);
         const service = new LinkService(prisma);
         const { shortId, title } = req.body.data;

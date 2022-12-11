@@ -27,12 +27,12 @@ const LogIn: NextPage = () => {
 
     return (
         <Layout>
-            <main className="w-3/5 flex flex-col gap-5 lg:w-[640px]">
-                <h1 className="flex row justify-center text-6xl font-bold text-white">
+            <main className="w-3/5 flex flex-col gap-5 md:w-[458px] bg-gray-100 p-8 py-16 shadow-2xl rounded-md">
+                <h1 className="flex row justify-center text-6xl font-bold text-sky-400">
                     Shortly <FaLink />
                 </h1>
                 <form action="" className="flex flex-col gap-1 ">
-                    <p className="text-white text-center text-lg font-semibold mt-5">
+                    <p className="text-black text-center text-lg font-semibold mt-5">
                         Sign In
                     </p>
                     {/* <input
@@ -43,14 +43,23 @@ const LogIn: NextPage = () => {
                         placeholder="Insert Email..."
                     /> */}
 
-                    <Input clearable size="xl" placeholder="Email..." />
+                    <Input
+                        clearable
+                        underlined
+                        size="xl"
+                        placeholder="Email..."
+                    />
                     <Input.Password
                         clearable
+                        underlined
                         size="xl"
                         placeholder="Password..."
                     />
 
-                    <button className="my-btn gap-1 px-3 mt-5" onClick={logIn}>
+                    <button
+                        className="my-btn gap-1 px-3 mt-5 bg-sky-300 hover:bg-sky-400 hover:text-white"
+                        onClick={logIn}
+                    >
                         Login with email
                         <CgLogIn size={30} />
                     </button>

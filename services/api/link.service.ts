@@ -21,6 +21,18 @@ class LinkService {
         });
     };
 
+    getFromUser = async (userId: string) => {
+        return await this.db.link.findMany({
+            where: {
+                Relation: {
+                    every: {
+                        userId,
+                    },
+                },
+            },
+        });
+    };
+
     createLink = async (link: string) => {
         const links = await this.getLink(link);
         console.log(links);

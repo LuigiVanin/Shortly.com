@@ -27,8 +27,6 @@ export const SaveLinkPopUp: React.FC<Props> = ({ show, disable, content }) => {
     const { saveLink: action, isLoading } = useSaveLink();
     const { input: title, handler } = useInput("");
 
-    console.log(content.shortId);
-
     const submit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data: SaveLinkRequest = {
@@ -42,7 +40,7 @@ export const SaveLinkPopUp: React.FC<Props> = ({ show, disable, content }) => {
         return isLoading ? (
             <ThreeDots height="80" width="80" radius="9" color="#ffffff" />
         ) : (
-            <>Confirmar</>
+            <>Salvar</>
         );
     };
 
@@ -66,8 +64,9 @@ export const SaveLinkPopUp: React.FC<Props> = ({ show, disable, content }) => {
                     <input
                         type="text"
                         placeholder="Insira um título..."
-                        className="url-box text-md h-10 px-2 shadow-lg mb-4 mt-1 hover:bg-white"
+                        className="url-box text-md h-10 px-2 py-6 shadow-lg mb-4 mt-1 hover:bg-white"
                         onChange={handler}
+                        required
                     />
                     <h2>Links</h2>
                     <textarea
@@ -81,10 +80,10 @@ export const SaveLinkPopUp: React.FC<Props> = ({ show, disable, content }) => {
                         placeholder=""
                         value={content.short}
                         disabled
-                        className="url-box text-md h-10 px-2 shadow-lg mb-4 mt-1 hover:bg-white"
+                        className="url-box text-md h-10 px-2 py-6 shadow-lg mb-4 mt-1 hover:bg-white"
                     />
                     <button
-                        className={`my-btn bg-emerald-200 hover:bg-emerald-400 hover:text-white hover:shadow-lg mt-7 ${
+                        className={`my-btn bg-emerald-300 hover:bg-emerald-400 hover:text-white hover:shadow-lg mt-7 ${
                             isLoading ? "bg-emerald-400" : ""
                         }`}
                         disabled={!title}
