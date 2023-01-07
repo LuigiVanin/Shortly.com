@@ -136,9 +136,7 @@ const Dashboard: NextPage<DashboardProps> = ({ secure }) => {
                                                 css={{ background: "$gray100" }}
                                             >
                                                 <main className="w-full min-h-32 flex flex-col px-5">
-                                                    <Text className="relative">
-                                                        Short Link:
-                                                    </Text>
+                                                    <Text>Long Link:</Text>
                                                     <p className="w-full p-4 bg-slate-100 rounded-md mb-3 relative flex items-center text-clip text-ellipsi">
                                                         {item.link.link}
                                                         <span
@@ -154,7 +152,10 @@ const Dashboard: NextPage<DashboardProps> = ({ secure }) => {
                                                             <FaCopy color="white" />
                                                         </span>
                                                     </p>
-                                                    <Text>Long Link:</Text>
+                                                    <Text className="relative">
+                                                        Short Link:
+                                                    </Text>
+
                                                     <p className="w-full p-4 bg-slate-100 rounded-md relative flex items-center text-clip text-ellipsi">
                                                         {createApiUrl(
                                                             item.link.short
