@@ -13,6 +13,13 @@ export default async function handler(
         if (!result) {
             return res.status(404).json({ message: "Not found" });
         }
+        // check if links has "https://" or "http://"
+        if (
+            !result.link.startsWith("https://") &&
+            !result.link.startsWith("http://")
+        ) {
+            return res.redirect(`https://${result.link}`);
+        }
         res.redirect(result.link);
     }
 }
