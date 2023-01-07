@@ -21,21 +21,28 @@ class LinkService {
         });
     };
 
-    getFromUser = async (userId: string) => {
-        return await this.db.link.findMany({
+    getFromUser = async (email: string, page: number) => {
+        return await this.db.relation.findMany({
             where: {
-                Relation: {
-                    every: {
-                        userId,
+                user: {
+                    email,
+                },
+            },
+            select: {
+                title: true,
+                link: {
+                    select: {
+                        link: true,
+                        short: true,
                     },
                 },
             },
+            take: page * 5,
         });
     };
 
     createLink = async (link: string) => {
         const links = await this.getLink(link);
-        console.log(links);
         if (!!links) {
             return links;
         }

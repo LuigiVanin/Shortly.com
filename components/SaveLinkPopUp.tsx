@@ -4,6 +4,7 @@ import { IoMdClose } from "react-icons/io";
 import { useSaveLink } from "../hooks/api/useSaveLink";
 import { useInput } from "../hooks/useInput";
 import { ThreeDots } from "react-loader-spinner";
+import toast from "react-hot-toast";
 
 interface ContentData {
     link: string;
@@ -27,13 +28,19 @@ export const SaveLinkPopUp: React.FC<Props> = ({ show, disable, content }) => {
     const { saveLink: action, isLoading } = useSaveLink();
     const { input: title, handler } = useInput("");
 
-    const submit = (event: FormEvent<HTMLFormElement>) => {
+    const submit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data: SaveLinkRequest = {
             shortId: content.shortId,
             title,
         };
-        action && action(data);
+        try {
+            action && (await action(data));
+            toast.success("Link encurtado com sucesso!");
+        } catch (e) {
+            console.log(e);
+            toast.error("Erro em encurtar seu link :/");
+        }
     };
 
     const ButtonContent = () => {
@@ -46,7 +53,7 @@ export const SaveLinkPopUp: React.FC<Props> = ({ show, disable, content }) => {
 
     return (
         <PopUp show={show} disable={disable}>
-            <div className="w-[400px] min-h-[450px] bg-slate-100 rounded-lg shadow-2xl p-3">
+            <div className="w-[400px] min-h-[450px] bg-slate-50 rounded-lg shadow-2xl p-3">
                 <span
                     className="absolute right-3 top-3 flex w-10 h-10 bg-slate-200 justify-center 
                                 items-center rounded-full cursor-pointer hover:text-white hover:bg-slate-700

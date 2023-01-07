@@ -10,6 +10,7 @@ import { authOptions } from "./api/auth/[...nextauth]";
 import { Layout } from "../components/Layout";
 import { FaLink } from "react-icons/fa";
 import { Input } from "@nextui-org/react";
+import Link from "next/link";
 
 const LogIn: NextPage = () => {
     const { input: email, handler: emailHandler } = useInput("");
@@ -27,7 +28,7 @@ const LogIn: NextPage = () => {
 
     return (
         <Layout>
-            <main className="w-3/5 flex flex-col gap-5 md:w-[458px] bg-gray-100 p-8 py-16 shadow-2xl rounded-md">
+            <main className="w-full max-w-[458px] flex flex-col items-center justify-center gap-5 sm:w-[458px] sm:rounded-md sm:h-[auto] h-[100vh] bg-gray-100 p-8 py-16 shadow-2xl rounded-none">
                 <h1 className="flex row justify-center text-6xl font-bold text-sky-400">
                     Shortly <FaLink />
                 </h1>
@@ -35,37 +36,7 @@ const LogIn: NextPage = () => {
                     <p className="text-black text-center text-lg font-semibold mt-5">
                         Sign In
                     </p>
-                    {/* <input
-                        type="text"
-                        className="url-box"
-                        value={email}
-                        onChange={emailHandler}
-                        placeholder="Insert Email..."
-                    /> */}
-
-                    <Input
-                        clearable
-                        underlined
-                        size="xl"
-                        placeholder="Email..."
-                    />
-                    <Input.Password
-                        clearable
-                        underlined
-                        size="xl"
-                        placeholder="Password..."
-                    />
-
-                    <button
-                        className="my-btn gap-1 px-3 mt-5 bg-sky-300 hover:bg-sky-400 hover:text-white"
-                        onClick={logIn}
-                    >
-                        Login with email
-                        <CgLogIn size={30} />
-                    </button>
                 </form>
-
-                <Divisor>or</Divisor>
 
                 <button
                     className="my-btn gap-1 px-3 text-white bg-gray-900 hover:bg-gray-800 hover:shadow-lg shadow-black"
@@ -74,6 +45,14 @@ const LogIn: NextPage = () => {
                     Login with Github
                     <FaGithub size={30} color={"white"} />
                 </button>
+
+                <Divisor> or </Divisor>
+
+                <Link href="home">
+                    <button className="my-btn w-full py-3 bg-slate-200 hover:bg-slate-300 text-sky-500 cursor-pointer font-bold text-xl hover:underline">
+                        Create anonymously
+                    </button>
+                </Link>
             </main>
         </Layout>
     );

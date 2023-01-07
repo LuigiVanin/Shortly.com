@@ -17,3 +17,7 @@
 .popup {
     animation: show-popup cubic-bezier(0.25, 0.75, 0.5, 1.25) 0.5s;
 }
+
+.collapse-animation {
+    animation: collapse cubic-bezier(0.25, 0.75, 0.5, 1.25) 0.5s;
+}
