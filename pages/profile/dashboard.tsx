@@ -178,7 +178,7 @@ const Dashboard: NextPage<DashboardProps> = ({ secure }) => {
                                     })}
                                 </Collapse.Group>
                                 <button
-                                    className="my-btn w-[100px] mx-auto"
+                                    className="my-btn w-[100px] mx-auto bg-white"
                                     disabled={isLoading}
                                     onClick={() => morePages(page + 1)}
                                 >

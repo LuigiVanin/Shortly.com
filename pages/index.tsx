@@ -1,26 +1,22 @@
 import { GetServerSideProps, NextPage } from "next";
 import { signIn } from "next-auth/react";
 import { FaGithub } from "react-icons/fa";
-import { CgLogIn } from "react-icons/cg";
 import { Divisor } from "../components/Divisor";
-import { useInput } from "../hooks/useInput";
 import { useState } from "react";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { Layout } from "../components/Layout";
 import { FaLink } from "react-icons/fa";
-import { Input } from "@nextui-org/react";
 import Link from "next/link";
+import { ThreeDots } from "react-loader-spinner";
 
 const LogIn: NextPage = () => {
-    const { input: email, handler: emailHandler } = useInput("");
-    const { input: pass, handler: passHandler } = useInput("");
     const [loading, setLoading] = useState(false);
 
     const logIn = () => {
         setLoading(true);
         signIn("github", {
-            callbackUrl: "/home",
+            callbackUrl: "/profile/dashboard",
         }).finally(() => {
             setLoading(false);
         });
@@ -42,15 +38,27 @@ const LogIn: NextPage = () => {
                     className="my-btn gap-1 px-3 text-white bg-gray-900 hover:bg-gray-800 hover:shadow-lg shadow-black"
                     onClick={logIn}
                 >
-                    Login with Github
-                    <FaGithub size={30} color={"white"} />
+                    {loading ? (
+                        <ThreeDots
+                            wrapperClass="mx-auto"
+                            height="50"
+                            width="50"
+                            radius="9"
+                            color="#ffffff"
+                        />
+                    ) : (
+                        <>
+                            Entrar com Github
+                            <FaGithub size={30} color={"white"} />
+                        </>
+                    )}
                 </button>
 
                 <Divisor> or </Divisor>
 
                 <Link href="home">
                     <button className="my-btn w-full py-3 bg-slate-200 hover:bg-slate-300 text-sky-500 cursor-pointer font-bold text-xl hover:underline">
-                        Create anonymously
+                        Criar Links Aninimamente!
                     </button>
                 </Link>
             </main>
