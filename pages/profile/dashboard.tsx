@@ -15,6 +15,9 @@ import style from "../../styles/animations.module.css";
 import toast from "react-hot-toast";
 import { createApiUrl } from "../../utils/url";
 import { FabGroup } from "../../components/FabGroup";
+import { LinkService } from "../../services/api/link.service";
+import prisma from "../../db";
+import { FabCopy } from "../../components/FabCopy";
 
 interface DashboardProps {
     secure: boolean;
@@ -35,7 +38,7 @@ const Dashboard: NextPage<DashboardProps> = ({ secure }) => {
     const copy = (event: any, link: string) => {
         event.stopPropagation();
 
-        copyToClipboard(createApiUrl(link));
+        copyToClipboard(link);
         toast.success("Link Copiado!");
     };
 
@@ -78,7 +81,7 @@ const Dashboard: NextPage<DashboardProps> = ({ secure }) => {
                     </Tooltip>
                     <Tooltip content="copiar">
                         <span
-                            onClick={(event) => copy(event, link)}
+                            onClick={(event) => copy(event, createApiUrl(link))}
                             className=" p-2 bg-gray-300 rounded-md cursor-pointer hover:bg-green-400"
                         >
                             <FaCopy color="white" />
@@ -139,18 +142,12 @@ const Dashboard: NextPage<DashboardProps> = ({ secure }) => {
                                                     <Text>Long Link:</Text>
                                                     <p className="w-full p-4 bg-slate-100 rounded-md mb-3 relative flex items-center text-clip text-ellipsi">
                                                         {item.link.link}
-                                                        <span
-                                                            onClick={(event) =>
-                                                                copy(
-                                                                    event,
-                                                                    item.link
-                                                                        .link
-                                                                )
+
+                                                        <FabCopy
+                                                            text={
+                                                                item.link.link
                                                             }
-                                                            className="absolute right-2 p-2 bg-gray-300 rounded-md cursor-pointer hover:bg-green-400"
-                                                        >
-                                                            <FaCopy color="white" />
-                                                        </span>
+                                                        />
                                                     </p>
                                                     <Text className="relative">
                                                         Short Link:
@@ -160,18 +157,11 @@ const Dashboard: NextPage<DashboardProps> = ({ secure }) => {
                                                         {createApiUrl(
                                                             item.link.short
                                                         )}
-                                                        <span
-                                                            onClick={(event) =>
-                                                                copy(
-                                                                    event,
-                                                                    item.link
-                                                                        .link
-                                                                )
-                                                            }
-                                                            className="absolute right-2 p-2 bg-gray-300 rounded-md cursor-pointer hover:bg-green-400"
-                                                        >
-                                                            <FaCopy color="white" />
-                                                        </span>
+                                                        <FabCopy
+                                                            text={createApiUrl(
+                                                                item.link.short
+                                                            )}
+                                                        />
                                                     </p>
                                                 </main>
                                             </Collapse>
@@ -208,17 +198,19 @@ const Dashboard: NextPage<DashboardProps> = ({ secure }) => {
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
     const session = await unstable_getServerSession(req, res, authOptions);
-    if (!session) {
+
+    if (!!session) {
         return {
-            props: {},
-            redirect: {
-                destination: "/",
+            props: {
+                secure: !!session,
             },
         };
     }
+
     return {
-        props: {
-            secure: !!session,
+        props: {},
+        redirect: {
+            destination: "/",
         },
     };
 };

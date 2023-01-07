@@ -14,7 +14,7 @@ export const FabCopy: React.FC<Props> = ({ text }) => {
     const copy = (event: any, link: string) => {
         event.stopPropagation();
 
-        copyToClipboard(createApiUrl(link));
+        copyToClipboard(link);
         toast.success("Link Copiado!");
     };
 
@@ -23,7 +23,7 @@ export const FabCopy: React.FC<Props> = ({ text }) => {
     return (
         <span
             onClick={(event) => copy(event, text)}
-            className="absolute right-1 p-2 bg-gray-300 rounded-md cursor-pointer hover:bg-green-400"
+            className="absolute right-2 p-2 bg-gray-300 rounded-md cursor-pointer hover:bg-green-400"
         >
             <FaCopy color="white" />
         </span>
