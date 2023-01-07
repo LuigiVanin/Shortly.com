@@ -1,4 +1,5 @@
 import React from "react";
+import { Children } from "../@types/react";
 
 interface Props {
     children: Children;
