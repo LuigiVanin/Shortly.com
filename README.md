@@ -8,19 +8,61 @@
 
 O shortly é um projeto criado para que os usuários possam encurtar links de forma simples e rápida. Ele foi construído usando tecnologias modernas para oferecer a melhor experiência possível, como o Next, NextAuth, tailwind e o NextUI. Essas soluções permitem uma configuração simplificada do site juntamente com recursos robustos e segurança de primeira linha. O Shortly tem um layout responsivo pelo qual pode ser facilmente acessado em diferentes dispositivos móveis.
 
----
+<h3 align="center">
+
+<a  href="https://poke-finder-nu.vercel.app/"/>
+
+«Acessar Website»
+
+</a>
+
+</h3>
+
+## Preview 🕶️
+
+<h3 align="center">
+
+<img src="./assets/shortly-mockup.png" />
+
+</h3>
+
+## Como Rodar 🚀
+
+Para rodar em desenvolvimento basta baixar os arquivos do projeto via zip ou `git clone`. Após isso basta baixar as dependências e rodar o código em desenvolvimento:
+
+```bash
+> npm i
+> npm run dev
+```
+
+Antes de subir a aplicação é necessário subir um banco de dados de preferência MySQL e também criar um app no github. Com os prerequisitos compreendidos, basta preencher o arquivo `.env` de acordo com o arquivo [.env.example](./.env.example)
+
+```.env
+DATABASE_URL='db'
+GITHUB_ID='id'
+GITHUB_SECRET='secret'
+NEXT_PUBLIC_API="https://api.com/"
+```
+
+### Todo ✅
+
+-   [ ] Componentizar melhor o app
+-   [ ] adicionar testes de componente com [testing library](https://testing-library.com/)
+-   [ ] Adionar um readme
+-   [ ] adicionar domínio para tentar encurtar o link
 
 ## Ferramentas Utilizadas 🛠️
 
 <p align="center">
     <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" />
+    <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
     <img src="https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white">
     <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" />
     <img src="https://img.shields.io/badge/Git-E34F26?style=for-the-badge&logo=git&logoColor=white" />
     <img src="https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white" />
     <img src="https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white" />
     <img src="https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white" />
-    <img src="" />
+    <img src="https://img.shields.io/badge/planet%20scale-090020?style=for-the-badge&logo=stellar&logoColor=white" />
 
 </p>
 
