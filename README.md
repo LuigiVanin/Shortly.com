@@ -1,8 +1,8 @@
-<h1 align="center">
+<h3 align="center">
 
 <img src="./assets/shortly-logo.svg" width="325px" />
 
-</h1>
+</h3>
 
 ## Descrição 📕
 
@@ -20,11 +20,11 @@ O shortly é um projeto criado para que os usuários possam encurtar links de fo
 
 ## Preview 🕶️
 
-<h3 align="center">
+<p align="center">
 
 <img src="./assets/shortly-mockup.png" />
 
-</h3>
+</p>
 
 ## Como Rodar 🚀
 
