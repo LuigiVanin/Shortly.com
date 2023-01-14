@@ -1,4 +1,4 @@
-import { GetServerSideProps, NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import { signIn } from "next-auth/react";
 import { FaGithub } from "react-icons/fa";
 import { Divisor } from "../components/Divisor";

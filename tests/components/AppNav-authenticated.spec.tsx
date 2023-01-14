@@ -1,5 +1,5 @@
-import { render } from "@testing-library/react";
-import { AppNav } from "../components/AppNav";
+import { render, fireEvent } from "@testing-library/react";
+import { AppNav } from "../../components/AppNav";
 import React from "react";
 
 let clicked = false;

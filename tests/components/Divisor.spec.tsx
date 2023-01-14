@@ -1,5 +1,5 @@
 import { render } from "@testing-library/react";
-import { Divisor } from "../components/Divisor";
+import { Divisor } from "../../components/Divisor";
 import { faker } from "@faker-js/faker";
 import { fail } from "assert";
 import React from "react";

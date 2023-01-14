@@ -19,8 +19,10 @@ export const PopUp: React.FC<Props> = ({ children, show, disable }) => {
                 <div
                     className="popup fixed inset-0 bg-black/10 flex items-center justify-center"
                     onClick={propagation}
+                    data-testid="backdrop"
                 >
                     <div
+                        data-testid="popup"
                         className={`relative shadow-2xl ${style.popup}`}
                         onClick={(event) => event.stopPropagation()}
                     >
