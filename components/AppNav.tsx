@@ -1,5 +1,6 @@
 import { Navbar } from "@nextui-org/react";
 import { signOut, useSession } from "next-auth/react";
+import React from "react";
 
 export const AppNav = () => {
     const logOut = () => {
@@ -10,7 +11,6 @@ export const AppNav = () => {
     };
 
     const session = useSession();
-    console.log(session);
 
     return (
         <Navbar.Content enableCursorHighlight variant={"underline"}>
