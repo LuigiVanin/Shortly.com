@@ -47,8 +47,8 @@ NEXT_PUBLIC_API="https://api.com/"
 ### Todo ✅
 
 -   [ ] Componentizar melhor o app
--   [ ] adicionar testes de componente com [testing library](https://testing-library.com/)
--   [ ] Adionar um readme
+-   [x] adicionar testes de componente com [testing library](https://testing-library.com/)
+-   [x] Adionar um readme
 -   [ ] adicionar domínio para tentar encurtar o link
 
 ## Ferramentas Utilizadas 🛠️
