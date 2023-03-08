@@ -88,6 +88,7 @@ Também é possível rodar os testes usando docker 🐋:
     <img src="https://img.shields.io/badge/planet%20scale-090020?style=for-the-badge&logo=stellar&logoColor=white" />
     <img src="https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white" />
     <img src="https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white" />
+    <img src="https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=white" />
 
 </p>
 
