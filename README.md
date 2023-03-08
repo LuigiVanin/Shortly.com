@@ -10,7 +10,7 @@ O shortly é um projeto criado para que os usuários possam encurtar links de fo
 
 <h3 align="center">
 
-<img src="https://shortly-com.vercel.app/" />
+<a href="https://shortly-com.vercel.app/" />
 
 «Acessar Website»
 
@@ -44,12 +44,37 @@ GITHUB_SECRET='secret'
 NEXT_PUBLIC_API="https://api.com/"
 ```
 
+## Rodar testes 🧪
+
+Essa aplicação possui testes de componentes usando a biblioteca [testing library](https://testing-library.com/) e [jest](https://jestjs.io/pt-BR/). Para rodar os testes basta rodar o comando. Para rodar os testes basta rodar o comando:
+
+```bash
+> npm run test
+```
+
+Para caso de desenvolvimento:
+
+```bash
+> npm run test:dev
+```
+
+Também é possível rodar os testes usando docker 🐋:
+
+```bash
+> docker build -t next-test .
+> docker run next-test:latest
+```
+
+```bash
+
 ### Todo ✅
 
 -   [ ] Componentizar melhor o app
--   [x] adicionar testes de componente com [testing library](https://testing-library.com/)
+-   [x] Adicionar testes de componente com [testing library](https://testing-library.com/)
 -   [x] Adionar um readme
--   [ ] adicionar domínio para tentar encurtar o link
+-   [ ] Adicionar um favicon
+-   [x] Simple ci for tests
+-   [ ] Adicionar domínio para tentar encurtar o link
 
 ## Ferramentas Utilizadas 🛠️
 
@@ -79,3 +104,4 @@ NEXT_PUBLIC_API="https://api.com/"
 <img src="https://img.shields.io/badge/Gmail:%20luisfvanin2@gmail.com-D14836?style=for-the-badge&logo=gmail&logoColor=white">
 </a>
 </p>
+```
