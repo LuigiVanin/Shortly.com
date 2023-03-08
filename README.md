@@ -65,8 +65,6 @@ Também é possível rodar os testes usando docker 🐋:
 > docker run next-test:latest
 ```
 
-```bash
-
 ### Todo ✅
 
 -   [ ] Componentizar melhor o app
